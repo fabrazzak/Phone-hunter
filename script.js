@@ -1,20 +1,31 @@
-const fetchDataOnline = async (a)=>{
+const fetchDataOnline = async (searText, trueFalse)=>{
 
-    const res = await fetch(` https://openapi.programming-hero.com/api/phones?search=${a}`)
+    const res = await fetch(` https://openapi.programming-hero.com/api/phones?search=${searText}`)
     const data= await res.json();
     const phones= data.data;
-    displayData(phones);
+    displayData(phones, trueFalse );
 
 }
 
-const displayData= (data)=>{
+const displayData= (data,trueFalse)=>{
     const loadDataContainer= document.getElementById("load-data-container");
      const showAll= document.getElementById("show-all");
     loadDataContainer.innerHTML=""
-    
-    const phones= data.slice(0,12);
+    let phones= data;
+      console.log("amar sonar bangla",trueFalse)
 
-    if(data.length>12){
+
+    if(!trueFalse){
+
+          phones= data.slice(0,12);
+
+    }
+    
+   
+
+  
+
+    if(data.length>12 && trueFalse == false){
        
         showAll.classList.remove("hidden");
     }
@@ -23,11 +34,11 @@ const displayData= (data)=>{
         showAll.classList.add("hidden");
 
     }
-    console.log(data.length)
+    
 
      phones.forEach (phone => {
         const {image,phone_name,slug,brand}=phone;
-        console.log(phone)
+       
 
        const divPhone= document.createElement("div");
        divPhone.classList.add('card','bg-base-100','shadow-xl');
@@ -57,10 +68,16 @@ const displayData= (data)=>{
      })
 }
 
+const showAllData= ()=>{
+    const inputValue= document.getElementById("input-value").value;
+     fetchDataOnline(inputValue,true)
+
+}
+
 const loadData=()=>{
 
     const inputValue= document.getElementById("input-value").value;
 
-    fetchDataOnline(inputValue)
+    fetchDataOnline(inputValue,false)
    
 }
