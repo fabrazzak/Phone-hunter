@@ -1,4 +1,4 @@
-const fetchDataOnline = async (searText, trueFalse)=>{
+const fetchDataOnline = async (searText = 'a' , trueFalse)=>{
 
     const res = await fetch(` https://openapi.programming-hero.com/api/phones?search=${searText}`)
     const data= await res.json();
@@ -9,6 +9,7 @@ const fetchDataOnline = async (searText, trueFalse)=>{
 
 const displayData= (data,trueFalse)=>{
     const loadDataContainer= document.getElementById("load-data-container");
+             const loading= document.getElementById("loading-icon");
      const showAll= document.getElementById("show-all");
     loadDataContainer.innerHTML=""
     let phones= data;
@@ -53,7 +54,7 @@ const displayData= (data,trueFalse)=>{
                             <h2 class="card-title">Name: ${phone_name}</h2>
                             <p>Brand: ${brand}</p>
                             <div class="card-actions">
-                                <button onclick=(seeMoreDetails(${slug})) class="btn btn-primary">See Details </button>
+                                <button onclick=(seeMoreDetails('${slug}')) class="btn btn-primary">See Details </button>
                             </div>
                         </div>
                     </div>      
@@ -66,18 +67,53 @@ const displayData= (data,trueFalse)=>{
 
 
      })
+
+    loading.classList.add("hidden") ;
 }
 
 const showAllData= ()=>{
     const inputValue= document.getElementById("input-value").value;
      fetchDataOnline(inputValue,true)
+}
+
+
+const displayModalData= async (id)=>{
+
+    const res= await fetch(` https://openapi.programming-hero.com/api/phone/${id}`);
+    const phone = await res.json();   
+  
+    const {name, brand,image}=phone.data;
+    console.log(phone.data);
+    document.getElementById("modal-img").src =image;
+    document.getElementById("modal-title").innerText= name;
+    document.getElementById("modal-brand").innerText= brand;
+
+
+   
+
 
 }
+
+
+const seeMoreDetails=(slug)=>{
+
+    showModals.showModal();
+     displayModalData(slug)
+}
+
+
+
+
 
 const loadData=()=>{
 
     const inputValue= document.getElementById("input-value").value;
+    const loading= document.getElementById("loading-icon");
+    loading.classList.remove("hidden")
 
     fetchDataOnline(inputValue,false)
+
    
 }
+
+loadData( fetchDataOnline());

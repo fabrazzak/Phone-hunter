@@ -72,10 +72,47 @@
             <!-- data loading  -->
 
             <section class="mt-10 ">
+ 
+                <div id="loading-icon" class="text-center  pt-10  hidden">
+                    <span class="loading loading-ring loading-lg"></span>
+                </div>
                 <div id="load-data-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   
                 </div>
+
+
+                <!-- modal  -->
+                <!-- Open the modal using ID.showModal() method -->
+               
+                <dialog id="showModals" class="modal modal-bottom sm:modal-middle">
+                    <div class="modal-box flex justify-center items-center">
+                      
+                                <div class="card bg-base-100 w-96 shadow-xl flex justify-center flex-col">
+                                    <figure class="px-10 pt-10">
+                                        <img id="modal-img" src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Shoes"
+                                            class="rounded-xl" />
+                                    </figure>
+                                    <div class="card-body items-center text-center">
+                                        <h2 class="card-title" id="modal-title"></h2>
+                                        <p id="modal-brand"></p>
+                                        
+                                
+                                    </div>
+                                    <div class="modal-action text-center  ">
+                                        <form method="dialog f">
+                                            <!-- if there is a button in form, it will close the modal -->
+                                            <button class="btn text-center mb-5 mr-5">X</button>
+                                        </form>
+                                    </div>
+                                </div>
+                      
+                        
+                    </div>
+                </dialog>
             </section>
+
+
+
 
             <!-- show all button  -->
 
